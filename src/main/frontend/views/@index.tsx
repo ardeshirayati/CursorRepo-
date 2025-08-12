@@ -1,32 +1,27 @@
-import { Button, Notification, TextField } from '@vaadin/react-components';
-import { HelloEndpoint } from 'Frontend/generated/endpoints.js';
+import { Button, LoginForm } from '@vaadin/react-components';
 import { useSignal } from '@vaadin/hilla-react-signals';
+import { AuthEndpoint } from 'Frontend/generated/endpoints.js';
 import type { ViewConfig } from '@vaadin/hilla-file-router/types.js';
 
 export const config: ViewConfig = {
-  menu: {
-    title: 'Main page',
-  },
+  menu: { title: 'Login' },
 };
 
-export default function MainView() {
-  const name = useSignal('');
+export default function LoginView() {
+  const error = useSignal(false);
 
   return (
-    <>
-      <TextField
-        label="Your name"
-        onValueChanged={(e) => {
-          name.value = e.detail.value;
-        }}
-      />
-      <Button
-        onClick={async () => {
-          const serverResponse = await HelloEndpoint.sayHello(name.value);
-          Notification.show(serverResponse);
-        }}>
-        Say hello
-      </Button>
-    </>
+    <LoginForm
+      error={error.value}
+      noForgotPassword
+      onLogin={async (e) => {
+        try {
+          await AuthEndpoint.login(e.detail.username, e.detail.password);
+          window.location.href = '/dashboard';
+        } catch (err) {
+          error.value = true;
+        }
+      }}
+    />
   );
 }
