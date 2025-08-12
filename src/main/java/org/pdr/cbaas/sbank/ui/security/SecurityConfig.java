@@ -4,6 +4,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -23,10 +24,24 @@ public class SecurityConfig {
 
     public static final String SESSION_JWT_ATTRIBUTE = "SESSION_BACKEND_JWT";
 
+    @Value("${csp.connect-src:self}")
+    private String cspConnectSrc;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.ignoringRequestMatchers("/connect/**", "/logout", "/hilla/**"))
+            .headers(headers -> headers
+                .contentSecurityPolicy(csp -> csp.policyDirectives(
+                    "default-src 'self'; " +
+                    "script-src 'self'; " +
+                    "style-src 'self' 'unsafe-inline'; " +
+                    "img-src 'self' data:; " +
+                    "font-src 'self' data:; " +
+                    "connect-src " + (cspConnectSrc == null || cspConnectSrc.isBlank() ? "'self'" : cspConnectSrc) + "; " +
+                    "frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+                ))
+            )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/connect/login", "/VAADIN/**", "/icons/**", "/images/**", "/manifest.webmanifest", "/sw.js", "/offline.html", "/hilla/**").permitAll()
                 .anyRequest().authenticated()
