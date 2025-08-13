@@ -15,7 +15,7 @@ export default function LoginView() {
     <LoginForm
       i18n={{
         header: { title: t('login'), description: '' },
-        form: { username: 'Username', password: 'Password', submit: t('login'), rememberMe: 'Remember me' },
+        form: { username: 'Username', password: 'Password', submit: t('login') },
         errorMessage: { title: t('loginError'), message: t('loginError'), username: '', password: '' },
         additionalInformation: '',
       }}
