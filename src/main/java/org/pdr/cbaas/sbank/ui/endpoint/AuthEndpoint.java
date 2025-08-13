@@ -3,6 +3,7 @@ package org.pdr.cbaas.sbank.ui.endpoint;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 import jakarta.servlet.http.HttpSession;
+import org.pdr.cbaas.sbank.ui.dto.UserInfo;
 import org.pdr.cbaas.sbank.ui.security.SecurityConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +15,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.IOException;
-import java.util.List;
 
 @BrowserCallable
 @AnonymousAllowed
@@ -63,6 +63,4 @@ public class AuthEndpoint {
     }
 
     public record LoginRequest(String username, String password) {}
-
-    public record UserInfo(String userId, String displayName, List<String> roles) {}
 }
