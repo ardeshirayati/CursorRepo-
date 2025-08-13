@@ -9,7 +9,7 @@ export const config: ViewConfig = { menu: { title: 'accounts' } };
 export default function AccountsView() {
   const [accounts, setAccounts] = useState<Account[]>([]);
   useEffect(() => {
-    AccountEndpoint.listAccounts().then((res) => setAccounts(res ?? []));
+    AccountEndpoint.listAccounts().then((res) => setAccounts((res as Account[] | undefined) ?? []));
   }, []);
 
   return (

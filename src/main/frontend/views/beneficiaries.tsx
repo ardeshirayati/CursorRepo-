@@ -9,7 +9,7 @@ export const config: ViewConfig = { menu: { title: 'beneficiaries' } };
 export default function BeneficiariesView() {
   const [items, setItems] = useState<Beneficiary[]>([]);
   useEffect(() => {
-    BeneficiaryEndpoint.listBeneficiaries().then((res) => setItems(res ?? []));
+    BeneficiaryEndpoint.listBeneficiaries().then((res) => setItems((res as Beneficiary[] | undefined) ?? []));
   }, []);
   return (
     <Grid items={items} style={{ width: '100%' }}>

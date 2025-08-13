@@ -1,4 +1,4 @@
-import { AppLayout, DrawerToggle, Icon, ProgressBar, SideNav, SideNavItem, Select, Switch } from '@vaadin/react-components';
+import { AppLayout, DrawerToggle, Icon, ProgressBar, SideNav, SideNavItem, Select, Checkbox } from '@vaadin/react-components';
 import { createMenuItems, useViewConfig } from '@vaadin/hilla-file-router/runtime.js';
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
@@ -44,13 +44,13 @@ export default function MainLayout() {
       <DrawerToggle slot="navbar" aria-label="Menu toggle" />
       <h2 slot="navbar" className="text-l m-0">{vaadin.documentTitleSignal}</h2>
       <div slot="navbar" style={{ marginInlineStart: 'auto', display: 'flex', alignItems: 'center', paddingInline: 'var(--lumo-space-m)' }}>
-        <Switch
+        <Checkbox
           checked={darkMode.value}
-          onCheckedChanged={(e) => (darkMode.value = (e as any).detail.value)}
+          onCheckedChanged={(e: CustomEvent) => (darkMode.value = (e as any).detail.value)}
           aria-label={t('theme')}
         >
           <Icon icon="vaadin:moon-o" />
-        </Switch>
+        </Checkbox>
       </div>
 
       <Suspense fallback={<ProgressBar indeterminate className="m-0" />}>

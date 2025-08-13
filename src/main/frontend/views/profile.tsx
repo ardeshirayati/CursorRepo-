@@ -8,7 +8,7 @@ export const config: ViewConfig = { menu: { title: 'profile' } };
 
 export default function ProfileView() {
   const [p, setP] = useState<Profile | null>(null);
-  useEffect(() => { ProfileEndpoint.me().then(setP); }, []);
+  useEffect(() => { ProfileEndpoint.me().then((res) => setP((res as Profile | undefined) ?? null)); }, []);
   if (!p) return null;
   return (
     <VerticalLayout style={{ gap: 'var(--lumo-space-m)', padding: 'var(--lumo-space-l)', maxWidth: 520 }}>
