@@ -17,7 +17,7 @@ export default function LoginView() {
       onLogin={async (e) => {
         try {
           await AuthEndpoint.login(e.detail.username, e.detail.password);
-          window.location.href = '/dashboard';
+          window.location.assign('/dashboard');
         } catch (err) {
           error.value = true;
         }
