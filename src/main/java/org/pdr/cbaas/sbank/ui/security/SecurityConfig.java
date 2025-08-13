@@ -11,6 +11,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -18,11 +20,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Configuration
 public class SecurityConfig {
 
     public static final String SESSION_JWT_ATTRIBUTE = "SESSION_BACKEND_JWT";
+    public static final String SESSION_ROLES_ATTRIBUTE = "SESSION_ROLES";
 
     @Value("${csp.connect-src:self}")
     private String cspConnectSrc;
@@ -43,7 +48,7 @@ public class SecurityConfig {
                 ))
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/connect/login", "/VAADIN/**", "/icons/**", "/images/**", "/manifest.webmanifest", "/sw.js", "/offline.html", "/hilla/**").permitAll()
+                .requestMatchers("/login", "/connect/login", "/VAADIN/**", "/icons/**", "/images/**", "/manifest.webmanifest", "/sw.js", "/offline.html", "/hilla/**", "/mock-api/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
@@ -58,8 +63,17 @@ public class SecurityConfig {
         protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
                 throws ServletException, IOException {
             Object token = req.getSession(false) != null ? req.getSession(false).getAttribute(SESSION_JWT_ATTRIBUTE) : null;
+            Object rolesAttr = req.getSession(false) != null ? req.getSession(false).getAttribute(SESSION_ROLES_ATTRIBUTE) : null;
             if (token instanceof String jwt && SecurityContextHolder.getContext().getAuthentication() == null) {
-                Authentication auth = new org.springframework.security.authentication.UsernamePasswordAuthenticationToken("session-user", jwt, List.of());
+                List<GrantedAuthority> authorities = List.of();
+                if (rolesAttr instanceof List<?> roleList) {
+                    authorities = roleList.stream()
+                        .filter(Objects::nonNull)
+                        .map(Object::toString)
+                        .map(r -> new SimpleGrantedAuthority("ROLE_" + r))
+                        .collect(Collectors.toList());
+                }
+                Authentication auth = new org.springframework.security.authentication.UsernamePasswordAuthenticationToken("session-user", jwt, authorities);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
             chain.doFilter(req, res);

@@ -47,6 +47,9 @@ public class AuthEndpoint {
             ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attrs.getRequest().getSession(true);
             session.setAttribute(SecurityConfig.SESSION_JWT_ATTRIBUTE, jwt);
+            if (user != null && user.roles() != null) {
+                session.setAttribute(SecurityConfig.SESSION_ROLES_ATTRIBUTE, user.roles());
+            }
             return user;
         }
         throw new IOException("Invalid credentials");
