@@ -32,6 +32,9 @@ public class SecurityConfig {
     @Value("${csp.connect-src:self}")
     private String cspConnectSrc;
 
+    @Value("${csp.script-src:'self'}")
+    private String cspScriptSrc;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -39,7 +42,7 @@ public class SecurityConfig {
             .headers(headers -> headers
                 .contentSecurityPolicy(csp -> csp.policyDirectives(
                     "default-src 'self'; " +
-                    "script-src 'self'; " +
+                    "script-src " + (cspScriptSrc == null || cspScriptSrc.isBlank() ? "'self'" : cspScriptSrc) + "; " +
                     "style-src 'self' 'unsafe-inline'; " +
                     "img-src 'self' data:; " +
                     "font-src 'self' data:; " +
