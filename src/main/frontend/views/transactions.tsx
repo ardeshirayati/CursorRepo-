@@ -9,7 +9,10 @@ export const config: ViewConfig = { menu: { title: 'transactions' } };
 export default function TransactionsView() {
   const [items, setItems] = useState<Transaction[]>([]);
   useEffect(() => {
-    TransactionEndpoint.listTransactions('acc-1001', 0, 20).then((p) => setItems(p?.items ?? []));
+    TransactionEndpoint.listTransactions('acc-1001', 0, 20).then((p) => {
+      const arr = (p?.items ?? []).filter((it): it is Transaction => !!it);
+      setItems(arr);
+    });
   }, []);
 
   return (
