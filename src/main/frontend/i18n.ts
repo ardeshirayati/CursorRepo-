@@ -12,6 +12,7 @@ export const messages: Record<Locale, Record<string, string>> = {
     dashboard: 'داشبورد',
     language: 'زبان',
     theme: 'حالت شب',
+    loginError: 'نام کاربری یا رمز عبور نادرست است',
   },
   en: {
     appTitle: 'Internet Banking',
@@ -19,6 +20,7 @@ export const messages: Record<Locale, Record<string, string>> = {
     dashboard: 'Dashboard',
     language: 'Language',
     theme: 'Dark mode',
+    loginError: 'Incorrect username or password',
   },
   ar: {
     appTitle: 'الخدمات المصرفية عبر الإنترنت',
@@ -26,6 +28,7 @@ export const messages: Record<Locale, Record<string, string>> = {
     dashboard: 'لوحة التحكم',
     language: 'اللغة',
     theme: 'الوضع الليلي',
+    loginError: 'اسم المستخدم أو كلمة المرور غير صحيحة',
   },
 };
 

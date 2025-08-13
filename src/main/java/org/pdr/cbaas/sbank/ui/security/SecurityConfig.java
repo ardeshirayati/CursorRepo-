@@ -38,7 +38,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/connect/**", "/logout", "/hilla/**"))
+            .csrf(csrf -> csrf.ignoringRequestMatchers("/connect/**", "/logout", "/hilla/**", "/mock-api/**"))
             .headers(headers -> headers
                 .contentSecurityPolicy(csp -> csp.policyDirectives(
                     "default-src 'self'; " +

@@ -31,7 +31,7 @@ export default function MainLayout() {
   });
 
   return (
-    <AppLayout primarySection="drawer">
+    <AppLayout primarySection="drawer" theme={darkMode.value ? 'dark' : undefined}>
       <div slot="drawer" className="flex flex-col justify-between h-full p-m" style={{ minWidth: '240px' }}>
         <header className="flex flex-col gap-m">
           <h1 className="text-l m-0">{t('appTitle')}</h1>
@@ -52,7 +52,7 @@ export default function MainLayout() {
           <SideNav onNavigate={({ path }) => navigate(path!)} location={location}>
             {createMenuItems().map(({ to, title }) => (
               <SideNavItem path={to} key={to}>
-                {title}
+                {t(title || '')}
               </SideNavItem>
             ))}
           </SideNav>
