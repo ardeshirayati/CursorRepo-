@@ -1,3 +1,64 @@
+:root {
+  --app-gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+  --card-bg: var(--lumo-base-color);
+  --card-shadow: 0 8px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
+  --card-radius: 16px;
+}
+
+[theme~="dark"] :root {
+  --card-bg: var(--lumo-base-color);
+  --card-shadow: 0 10px 24px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.25);
+}
+
 .view {
-    padding: 1rem;
+  padding: var(--lumo-space-l);
+}
+
+.app-hero {
+  background: var(--app-gradient);
+  color: white;
+  padding: var(--lumo-space-l);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.app-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--lumo-space-l);
+}
+
+vaadin-card, .vaadin-card, [part~="content"], .app-card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.app-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.10);
+}
+
+.app-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lumo-space-l);
+}
+
+.navbar-actions {
+  margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--lumo-space-m);
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  .view {
+    padding: var(--lumo-space-m);
+  }
+  .app-cards {
+    gap: var(--lumo-space-m);
+  }
 }

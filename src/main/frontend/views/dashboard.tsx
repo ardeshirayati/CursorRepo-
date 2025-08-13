@@ -7,12 +7,16 @@ export const config: ViewConfig = {
 
 export default function DashboardView() {
   return (
-    <VerticalLayout style={{ width: '100%', padding: 'var(--lumo-space-l)', gap: 'var(--lumo-space-l)' }}>
-      <HorizontalLayout style={{ gap: 'var(--lumo-space-l)', flexWrap: 'wrap' }}>
-        <Card style={{ flex: '1 1 280px', minHeight: '140px', padding: 'var(--lumo-space-m)' }}>Account summary</Card>
-        <Card style={{ flex: '1 1 280px', minHeight: '140px', padding: 'var(--lumo-space-m)' }}>Recent transactions</Card>
-        <Card style={{ flex: '1 1 280px', minHeight: '140px', padding: 'var(--lumo-space-m)' }}>Quick actions</Card>
-      </HorizontalLayout>
-    </VerticalLayout>
+    <div className="app-section">
+      <div className="app-hero">
+        <h3 style={{ margin: 0 }}>Welcome back</h3>
+        <div style={{ opacity: 0.9 }}>Your quick banking overview</div>
+      </div>
+      <div className="app-cards">
+        <Card className="app-card" style={{ minHeight: '140px', padding: 'var(--lumo-space-m)' }}>Account summary</Card>
+        <Card className="app-card" style={{ minHeight: '140px', padding: 'var(--lumo-space-m)' }}>Recent transactions</Card>
+        <Card className="app-card" style={{ minHeight: '140px', padding: 'var(--lumo-space-m)' }}>Quick actions</Card>
+      </div>
+    </div>
   );
 }
