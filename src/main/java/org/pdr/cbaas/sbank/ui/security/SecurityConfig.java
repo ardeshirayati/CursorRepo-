@@ -48,7 +48,7 @@ public class SecurityConfig {
                 ))
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/connect/login", "/VAADIN/**", "/icons/**", "/images/**", "/manifest.webmanifest", "/sw.js", "/offline.html", "/hilla/**", "/mock-api/**").permitAll()
+                .requestMatchers("/", "/index.html", "/login", "/connect/login", "/VAADIN/**", "/icons/**", "/images/**", "/manifest.webmanifest", "/sw.js", "/offline.html", "/hilla/**", "/mock-api/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
