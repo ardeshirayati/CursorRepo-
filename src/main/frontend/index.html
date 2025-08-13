@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>skeleton-starter-hilla-react</title>
+    <link rel="preload" href="/themes/skeleton-starter-hilla-react/fonts/Vazir.woff2" as="font" type="font/woff2" crossorigin>
     <style>
       body {
         margin: 0;
@@ -14,6 +15,8 @@
       #outlet {
         height: 100%;
       }
+      :root { --app-font: 'Vazir', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      html, body { font-family: var(--app-font); }
     </style>
     <!-- index.ts is included here automatically (either by the dev server or during the build) -->
   </head>

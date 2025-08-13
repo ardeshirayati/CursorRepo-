@@ -1,8 +1,22 @@
+@font-face {
+  font-family: 'Vazir';
+  src: url('./fonts/Vazir.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body {
+  font-family: 'Vazir', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+* { transition: color 120ms ease, background-color 120ms ease, box-shadow 120ms ease, transform 120ms ease; }
+
 :root {
-  --app-gradient: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+  --app-gradient: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
   --card-bg: var(--lumo-base-color);
   --card-shadow: 0 8px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.06);
-  --card-radius: 16px;
+  --card-radius: 12px;
 }
 
 [theme~="dark"] :root {
@@ -10,9 +24,7 @@
   --card-shadow: 0 10px 24px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.25);
 }
 
-.view {
-  padding: var(--lumo-space-l);
-}
+.view { padding: var(--lumo-space-l); }
 
 .app-hero {
   background: var(--app-gradient);
@@ -28,37 +40,19 @@
   gap: var(--lumo-space-l);
 }
 
-vaadin-card, .vaadin-card, [part~="content"], .app-card {
+.app-card {
   background: var(--card-bg);
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
-.app-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12), 0 4px 10px rgba(0,0,0,0.10);
-}
+.app-card:hover { transform: translateY(-3px); }
 
-.app-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--lumo-space-l);
-}
+.app-section { display: flex; flex-direction: column; gap: var(--lumo-space-l); }
 
-.navbar-actions {
-  margin-inline-start: auto;
-  display: flex;
-  align-items: center;
-  gap: var(--lumo-space-m);
-}
+.navbar-actions { margin-inline-start: auto; display: flex; align-items: center; gap: var(--lumo-space-m); }
 
-/* Mobile tweaks */
 @media (max-width: 480px) {
-  .view {
-    padding: var(--lumo-space-m);
-  }
-  .app-cards {
-    gap: var(--lumo-space-m);
-  }
+  .view { padding: var(--lumo-space-m); }
+  .app-cards { gap: var(--lumo-space-m); }
 }
