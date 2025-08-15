@@ -15,10 +15,23 @@ export default function AccountsView() {
   return (
     <VerticalLayout style={{ gap: 'var(--lumo-space-m)', padding: 'var(--lumo-space-l)' }}>
       {accounts.map((a) => (
-        <Card key={a.id} style={{ padding: 'var(--lumo-space-m)' }}>
-          <div style={{ fontWeight: 600 }}>{a.title}</div>
-          <div style={{ opacity: 0.8 }}>{a.iban}</div>
-          <div style={{ marginTop: '0.5rem' }}>{a.balance?.amount} {a.balance?.currency}</div>
+        <Card key={a.id} className="rounded-xl shadow-card hover:-translate-y-0.5 transition-transform" style={{ padding: 'var(--lumo-space-m)' }}>
+          <div className="text-base font-semibold text-slate-800 dark:text-slate-100">{a.title}</div>
+          <div className="text-slate-500 dark:text-slate-400">{a.iban}</div>
+          <div className="mt-2 flex items-baseline gap-2">
+            {(() => {
+              const value = a.balance?.amount ?? 0;
+              const isPositive = value >= 0;
+              const color = isPositive ? 'text-green-600' : 'text-red-600';
+              const sign = isPositive ? '' : '-';
+              return (
+                <>
+                  <span className={`text-lg font-bold ${color}`}>{sign}{Math.abs(value)}</span>
+                  <span className="text-slate-500 dark:text-slate-400">{a.balance?.currency}</span>
+                </>
+              );
+            })()}
+          </div>
         </Card>
       ))}
     </VerticalLayout>

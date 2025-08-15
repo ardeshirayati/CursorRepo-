@@ -21,9 +21,9 @@ export default function MainLayout() {
 
   return (
     <AppLayout primarySection="drawer" theme={darkMode.value ? 'dark' : undefined}>
-      <div slot="drawer" className="flex flex-col justify-between h-full p-m" style={{ minWidth: '240px' }}>
+      <div slot="drawer" className="flex flex-col justify-between h-full p-m bg-slate-50 dark:bg-slate-900">
         <header className="flex flex-col gap-m">
-          <h1 className="text-l m-0">{t('appTitle')}</h1>
+          <h1 className="text-l m-0 font-semibold text-brand-700 dark:text-brand-100">{t('appTitle')}</h1>
           <Select
             label={t('language')}
             style={{ width: '100%' }}
@@ -41,20 +41,22 @@ export default function MainLayout() {
         </header>
       </div>
 
-      <DrawerToggle slot="navbar" aria-label="Menu toggle" />
-      <h2 slot="navbar" className="text-l m-0">{vaadin.documentTitleSignal}</h2>
-      <div slot="navbar" style={{ marginInlineStart: 'auto', display: 'flex', alignItems: 'center', paddingInline: 'var(--lumo-space-m)' }}>
-        <Checkbox
-          checked={darkMode.value}
-          onCheckedChanged={(e: CustomEvent) => (darkMode.value = (e as any).detail.value)}
-          aria-label={t('theme')}
-        >
-          <Icon icon="vaadin:moon-o" />
-        </Checkbox>
+            <div slot="navbar" className="flex items-center gap-3 px-4 h-14 bg-gradient-to-r from-brand-700 to-cyan-500 text-white shadow">
+        <DrawerToggle aria-label="Menu toggle" />
+        <h2 className="text-base font-semibold m-0">{vaadin.documentTitleSignal}</h2>
+        <div className="ms-auto flex items-center gap-3">
+          <Checkbox
+            checked={darkMode.value}
+            onCheckedChanged={(e: CustomEvent) => (darkMode.value = (e as any).detail.value)}
+            aria-label={t('theme')}
+          >
+            <Icon icon="vaadin:moon-o" />
+          </Checkbox>
+        </div>
       </div>
 
-      <Suspense fallback={<ProgressBar indeterminate className="m-0" />}>
-        <section className="view" style={{ padding: 'var(--lumo-space-m)' }}>
+      <Suspense fallback={<ProgressBar indeterminate className="m-0" />}> 
+        <section className="view max-w-7xl mx-auto">
           <Outlet />
         </section>
       </Suspense>

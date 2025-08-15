@@ -12,7 +12,7 @@ export default function BeneficiariesView() {
     BeneficiaryEndpoint.listBeneficiaries().then((res) => setItems((res as Beneficiary[] | undefined) ?? []));
   }, []);
   return (
-    <Grid items={items} style={{ width: '100%' }}>
+    <Grid items={items} theme="no-border row-stripes" style={{ width: '100%' }}>
       <GridColumn path="name" header="Name" />
       <GridColumn path="iban" header="IBAN" />
       <GridColumn path="bankName" header="Bank" />

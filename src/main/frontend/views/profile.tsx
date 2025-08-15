@@ -11,11 +11,13 @@ export default function ProfileView() {
   useEffect(() => { ProfileEndpoint.me().then((res) => setP((res as Profile | undefined) ?? null)); }, []);
   if (!p) return null;
   return (
-    <VerticalLayout style={{ gap: 'var(--lumo-space-m)', padding: 'var(--lumo-space-l)', maxWidth: 520 }}>
-      <TextField label="User ID" value={p.userId} readonly />
-      <TextField label="Name" value={p.displayName} readonly />
-      <TextField label="Locale" value={p.preferredLocale} readonly />
-      <TextField label="Roles" value={(p.roles || []).join(', ')} readonly />
-    </VerticalLayout>
+    <div className="max-w-md mx-auto p-6 rounded-xl shadow-card bg-white/70 dark:bg-slate-800/50 backdrop-blur">
+      <VerticalLayout style={{ gap: 'var(--lumo-space-m)' }}>
+        <TextField label="User ID" value={p.userId} readonly />
+        <TextField label="Name" value={p.displayName} readonly />
+        <TextField label="Locale" value={p.preferredLocale} readonly />
+        <TextField label="Roles" value={(p.roles || []).join(', ')} readonly />
+      </VerticalLayout>
+    </div>
   );
 }
